@@ -29,7 +29,7 @@ const migrations = [
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
         sender_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         recipient_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-        message TEXT NOT NULL CHECK (length(message) >= 10 AND length(message) <= 500),
+        message TEXT NOT NULL CHECK (length(message) >= 3 AND length(message) <= 500),
         is_anonymous BOOLEAN DEFAULT FALSE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -101,6 +101,13 @@ const migrations = [
         id VARCHAR(255) PRIMARY KEY,
         executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
+    `
+  },
+  {
+    id: '006_update_kudos_message_min_length',
+    sql: `
+      ALTER TABLE kudos DROP CONSTRAINT IF EXISTS kudos_message_check;
+      ALTER TABLE kudos ADD CONSTRAINT kudos_message_check CHECK (length(message) >= 3 AND length(message) <= 500);
     `
   }
 ];

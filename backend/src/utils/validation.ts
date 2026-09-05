@@ -3,7 +3,7 @@ import Joi from 'joi';
 // Kudos validation schemas
 export const kudosSubmitSchema = Joi.object({
   recipient_id: Joi.string().uuid().required(),
-  message: Joi.string().min(10).max(500).required(),
+  message: Joi.string().min(3).max(500).required(),
   is_anonymous: Joi.boolean().default(false)
 });
 

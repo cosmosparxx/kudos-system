@@ -191,8 +191,8 @@ export default function KudosDashboard() {
       return
     }
 
-    if (message.trim().length < 10) {
-      setError('Message must be at least 10 characters long.')
+    if (message.trim().length < 3) {
+      setError('Message must be at least 3 characters long.')
       return
     }
 
