@@ -15,7 +15,7 @@ export const kudosFlagSchema = Joi.object({
 // User validation schemas
 export const userSearchSchema = Joi.object({
   q: Joi.string().min(1).max(100).required(),
-  limit: Joi.number().default(10).min(1).max(50)
+  limit: Joi.number().default(10).max(50)
 });
 
 export const userIdSchema = Joi.object({
@@ -25,18 +25,7 @@ export const userIdSchema = Joi.object({
 // Pagination schema
 export const paginationSchema = Joi.object({
   page: Joi.number().default(1).min(1),
-  limit: Joi.number().default(10).min(1).max(50),
-  search: Joi.string().max(100).allow('').optional(),
-  start_date: Joi.string().isoDate().optional(),
-  end_date: Joi.string().isoDate().optional()
-});
-
-export const kudosIdParamsSchema = Joi.object({
-  kudos_id: Joi.string().uuid().required()
-});
-
-export const notificationIdParamsSchema = Joi.object({
-  id: Joi.string().uuid().required()
+  limit: Joi.number().default(10).min(1).max(50)
 });
 
 // Validation middleware

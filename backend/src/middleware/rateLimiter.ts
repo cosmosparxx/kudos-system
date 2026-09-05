@@ -1,9 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { getRedisClient } from '../cache/redis.js';
 import logger from '../utils/logger.js';
-import { config } from 'dotenv';
-
-config();
 
 const KUDOS_PER_USER_PER_DAY = parseInt(process.env.KUDOS_PER_USER_PER_DAY || '50');
 
@@ -51,8 +48,8 @@ export async function kudosRateLimiter(req: Request, res: Response, next: NextFu
     next();
   } catch (error) {
     logger.error('Rate limiter error:', error);
-    // Fail closed: Redis is required for enforcing the abuse-prevention limit.
-    return res.status(503).json({ error: 'Rate limiting service unavailable' });
+    // On error, allow request to proceed (don't break the app)
+    next();
   }
 }
 

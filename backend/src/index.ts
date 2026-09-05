@@ -10,11 +10,11 @@ config();
 import { createDbPool } from './database/db.js';
 import { createRedisClient } from './cache/redis.js';
 import logger from './utils/logger.js';
-import { csrfProtection } from './middleware/csrf.js';
 
 // Route imports
 import kudosRoutes from './routes/kudos.js';
 import userRoutes from './routes/users.js';
+import authRoutes from './routes/auth.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,7 +27,6 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(csrfProtection);
 
 // Rate limiting
 const limiter = rateLimit({
@@ -42,6 +41,7 @@ app.get('/api/v1/health', (req, res) => {
 });
 
 // Routes
+app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/kudos', kudosRoutes);
 app.use('/api/v1/users', userRoutes);
 

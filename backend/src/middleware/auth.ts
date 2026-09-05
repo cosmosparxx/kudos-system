@@ -2,14 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { getUserRole } from '../services/userService.js';
 import logger from '../utils/logger.js';
-import { config } from 'dotenv';
-
-config();
 
 declare global {
   namespace Express {
     interface Request {
-      user?: {
+      user: {
         id: string;
         email: string;
         name: string;
@@ -26,18 +23,16 @@ export interface AuthRequest extends Request {
   };
 }
 
-function getJwtSecret(): string {
-  const secret = process.env.JWT_SECRET;
-  if (!secret && process.env.NODE_ENV === 'production') {
-    throw new Error('JWT_SECRET must be configured in production');
-  }
-  return secret || 'development-only-secret-change-me';
-}
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
 /**
  * Verify JWT token and attach user to request
  */
-export function authenticateToken(req: Request, res: Response, next: NextFunction) {
+export function authenticateToken(
+  req: AuthRequest,
+  res: Response, 
+  next: NextFunction
+) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
 
@@ -46,7 +41,7 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
   }
 
   try {
-    const decoded = jwt.verify(token, getJwtSecret()) as any;
+    const decoded = jwt.verify(token, JWT_SECRET) as any;
     req.user = {
       id: decoded.id,
       email: decoded.email,
@@ -85,10 +80,12 @@ export async function requireAdmin(req: AuthRequest, res: Response, next: NextFu
  * Generate JWT token
  */
 export function generateToken(userId: string, email: string, name: string): string {
+  const expiresIn = process.env.JWT_EXPIRATION || '7d';
+
   return jwt.sign(
     { id: userId, email, name },
-    getJwtSecret(),
-    { expiresIn: process.env.JWT_EXPIRATION || '7d' }
+    JWT_SECRET,
+    { expiresIn: expiresIn as jwt.SignOptions['expiresIn'] }
   );
 }
 
@@ -97,7 +94,7 @@ export function generateToken(userId: string, email: string, name: string): stri
  */
 export function verifyToken(token: string): any {
   try {
-    return jwt.verify(token, getJwtSecret());
+    return jwt.verify(token, JWT_SECRET);
   } catch (error) {
     logger.error('Token verification failed:', error);
     return null;

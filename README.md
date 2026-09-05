@@ -1,70 +1,70 @@
 # Kudos System - Internal Web App
 
-A small internal recognition feature that lets authenticated employees give kudos to colleagues and review a shared recent feed. Users can report inappropriate content and administrators can moderate it.
+A feature for recognizing and appreciating colleagues through public kudos submissions and a shared feed.
 
 ## Project Structure
 
-```text
+```
 kudos/
-├── backend/                 # Node.js/Express API
-├── frontend/                # React/Vite dashboard
-├── database/                # Database setup guide
-├── FEATURE_SPECIFICATION.md # Original detailed draft
-├── SPECIFICATION.md         # Final approved v1.0 specification
+├── backend/              # Node.js/Express API server
+├── frontend/             # React application
+├── database/             # Database migrations and setup scripts
+├── FEATURE_SPECIFICATION.md
 └── README.md
 ```
 
-## Prerequisites
+## Quick Start
 
+### Prerequisites
 - Node.js 18+
-- npm
+- npm or yarn
 - PostgreSQL 13+
 - Redis 7+
 
-## Run locally
-
-### Backend
-
+### Backend Setup
 ```bash
 cd backend
 npm install
 cp .env.example .env
-# Set DB and JWT values in .env
 npm run migrate
 npm run dev
 ```
 
-### Frontend
-
+### Frontend Setup
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-The frontend defaults to `/api/v1` and Vite proxies `/api` to `http://localhost:3000` during development.
+## Technology Stack
 
-## Main Features
+**Backend:**
+- Node.js 18+
+- Express.js
+- PostgreSQL 13+
+- Redis 7+
+- Axios
 
-- Submit kudos to another employee
-- Optional anonymous kudos
-- Recent public feed with search and pagination
-- In-app notifications
-- Report inappropriate kudos
-- Admin flagged-content queue
-- Admin hide/soft-delete moderation
-- Redis caching and per-user rate limiting
-- Server-side message sanitisation
+**Frontend:**
+- React 18+
+- Vite
+- Tailwind CSS
+- Axios
 
-## API Health Check
+## Features
 
-```bash
-curl http://localhost:3000/api/v1/health
-```
+- ✅ Submit kudos to colleagues
+- ✅ View public kudos feed
+- ✅ In-app notifications
+- ✅ Personal kudos history
+- ✅ Report inappropriate content
+- ✅ Admin moderation dashboard
 
 ## Documentation
 
-- `SPECIFICATION.md` — final approved v1.0 scope and technical design
-- `FEATURE_SPECIFICATION.md` — original detailed specification draft
-- `DEVELOPMENT.md` — local development notes
-- `database/SETUP.md` — PostgreSQL setup
+See `FEATURE_SPECIFICATION.md` for detailed requirements and design documentation.
+
+## Development Status
+
+Implementation in progress - Phase 1: Foundation

@@ -7,6 +7,7 @@ export interface User {
   email: string;
   avatar_url?: string;
   department?: string;
+  role?: string;
   created_at?: string;
 }
 
@@ -29,6 +30,7 @@ export async function searchUsers(
         email, 
         avatar_url, 
         department,
+        role,
         created_at
       FROM users
       WHERE (
@@ -61,7 +63,7 @@ export async function searchUsers(
 export async function getUserById(userId: string): Promise<User | null> {
   try {
     const result = await query(
-      `SELECT id, name, email, avatar_url, department, created_at 
+      `SELECT id, name, email, avatar_url, department, role, created_at 
        FROM users 
        WHERE id = $1`,
       [userId]
@@ -79,7 +81,7 @@ export async function getUserById(userId: string): Promise<User | null> {
 export async function getUserByEmail(email: string): Promise<User | null> {
   try {
     const result = await query(
-      `SELECT id, name, email, avatar_url, department, created_at 
+      `SELECT id, name, email, avatar_url, department, role, created_at 
        FROM users 
        WHERE LOWER(email) = LOWER($1)`,
       [email]
@@ -153,7 +155,7 @@ export async function validateKudosUsers(senderId: string, recipientId: string):
       [senderId, recipientId]
     );
 
-    return result.rows[0].count === 2;
+    return parseInt(result.rows[0].count, 10) === 2;
   } catch (error) {
     logger.error('Error validating kudos users:', error);
     throw error;
@@ -172,6 +174,32 @@ export async function getUserRole(userId: string): Promise<string | null> {
     return result.rows[0]?.role || null;
   } catch (error) {
     logger.error('Error getting user role:', error);
+    throw error;
+  }
+}
+
+/**
+ * Create or upsert user
+ */
+export async function createUser(userData: {
+  name: string;
+  email: string;
+  role?: string;
+  department?: string;
+}): Promise<User> {
+  try {
+    const role = userData.role || 'user';
+    const department = userData.department || 'Engineering';
+    const result = await query(
+      `INSERT INTO users (name, email, role, department)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (email) DO UPDATE SET role = EXCLUDED.role
+       RETURNING id, name, email, avatar_url, department, role, created_at`,
+      [userData.name, userData.email, role, department]
+    );
+    return result.rows[0];
+  } catch (error) {
+    logger.error('Error creating user:', error);
     throw error;
   }
 }

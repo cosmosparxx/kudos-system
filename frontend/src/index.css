@@ -1,7 +1,768 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* =========================================
+   KUDOS — DREAMY PURPLE LANDING PAGE
+   ========================================= */
 
-:root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111827; background: #f3f4f6; }
-body { margin: 0; min-width: 320px; min-height: 100vh; }
-button, input, textarea, select { font: inherit; }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+
+/* =========================================
+   RESET
+   ========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #17132f;
+  color: white;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+
+/* =========================================
+   APP
+   ========================================= */
+
+.app {
+  min-height: 100vh;
+  background: #17132f;
+}
+
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 76% 48%,
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.08) 12%,
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #3d438f 0%,
+      #5650a0 30%,
+      #8164b2 55%,
+      #b77bb5 78%,
+      #d58ba8 100%
+    );
+}
+
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+
+.navbar {
+  position: relative;
+  z-index: 30;
+
+  height: 82px;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 7%;
+}
+
+
+/* Logo */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+
+/* Two overlapping circles */
+
+.logo-icon {
+  position: relative;
+
+  width: 28px;
+  height: 24px;
+}
+
+.logo-icon span {
+  position: absolute;
+
+  width: 16px;
+  height: 16px;
+
+  top: 4px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.logo-icon span:first-child {
+  left: 0;
+}
+
+.logo-icon span:last-child {
+  left: 10px;
+
+  background: rgba(255, 255, 255, 0.6);
+}
+
+
+/* Navigation */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-links a {
+  position: relative;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 11px;
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  transition: 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+
+  position: absolute;
+
+  left: 0;
+  bottom: -8px;
+
+  width: 0;
+  height: 1px;
+
+  background: white;
+
+  transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: white;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+
+/* =========================================
+   HERO CONTENT
+   ========================================= */
+
+.hero-content {
+  position: relative;
+  z-index: 15;
+
+  width: 55%;
+
+  padding-left: 7%;
+  padding-top: 13vh;
+}
+
+
+/* Small text */
+
+.eyebrow {
+  margin-bottom: 15px;
+
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: 3px;
+}
+
+
+/* Main heading */
+
+.hero-title {
+  max-width: 700px;
+
+  color: white;
+
+  font-size: clamp(48px, 6vw, 82px);
+
+  font-weight: 800;
+
+  line-height: 1.04;
+
+  letter-spacing: -3px;
+
+  text-shadow:
+    0 10px 35px rgba(40, 25, 90, 0.3);
+}
+
+.hero-title span {
+  color: #ffd2eb;
+}
+
+
+/* Description */
+
+.hero-text {
+  max-width: 500px;
+
+  margin-top: 25px;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  font-size: 14px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================
+   BUTTON
+   ========================================= */
+
+.btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 150px;
+
+  margin-top: 32px;
+
+  padding: 14px 25px;
+
+  border-radius: 3px;
+
+  background: #f4a928;
+
+  color: white;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  box-shadow:
+    0 12px 30px rgba(70, 35, 50, 0.25);
+
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #ffb83d;
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 18px 35px rgba(70, 35, 50, 0.3);
+}
+
+
+/* =========================================
+   MOON
+   ========================================= */
+
+.moon {
+  position: absolute;
+
+  z-index: 3;
+
+  width: 185px;
+  height: 185px;
+
+  right: 17%;
+  top: 38%;
+
+  border-radius: 50%;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 25px rgba(255, 255, 255, 0.95),
+    0 0 65px rgba(255, 255, 255, 0.55),
+    0 0 130px rgba(220, 190, 255, 0.35);
+}
+
+.moon::before {
+  content: '';
+
+  position: absolute;
+
+  inset: -35px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  box-shadow:
+    0 0 70px rgba(255, 255, 255, 0.25);
+}
+
+
+/* =========================================
+   STARS
+   ========================================= */
+
+.star {
+  position: absolute;
+
+  z-index: 5;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  box-shadow:
+    0 0 8px white;
+
+  animation: twinkle 3s infinite ease-in-out;
+}
+
+.star-1 {
+  top: 22%;
+  left: 20%;
+}
+
+.star-2 {
+  top: 34%;
+  left: 64%;
+
+  animation-delay: 0.7s;
+}
+
+.star-3 {
+  top: 48%;
+  left: 40%;
+
+  animation-delay: 1.4s;
+}
+
+.star-4 {
+  top: 29%;
+  right: 9%;
+
+  animation-delay: 2s;
+}
+
+.star-5 {
+  top: 18%;
+  right: 32%;
+
+  animation-delay: 2.5s;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.7);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+
+/* =========================================
+   CLOUDS
+   ========================================= */
+
+.cloud {
+  position: absolute;
+
+  z-index: 4;
+
+  width: 110px;
+  height: 18px;
+
+  border-radius: 50px;
+
+  background: rgba(220, 205, 245, 0.25);
+
+  filter: blur(1px);
+}
+
+.cloud::before,
+.cloud::after {
+  content: '';
+
+  position: absolute;
+
+  bottom: 0;
+
+  border-radius: 50%;
+
+  background: inherit;
+}
+
+.cloud::before {
+  width: 40px;
+  height: 40px;
+
+  left: 25px;
+}
+
+.cloud::after {
+  width: 50px;
+  height: 50px;
+
+  right: 12px;
+}
+
+.cloud-1 {
+  top: 25%;
+  left: 38%;
+}
+
+.cloud-2 {
+  top: 43%;
+  right: 35%;
+
+  transform: scale(0.8);
+}
+
+.cloud-3 {
+  top: 29%;
+  right: 3%;
+
+  transform: scale(0.7);
+}
+
+
+/* =========================================
+   MOUNTAINS
+   ========================================= */
+
+.mountains {
+  position: absolute;
+
+  z-index: 8;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 48%;
+}
+
+
+/* Back */
+
+.mountain-back {
+  position: absolute;
+
+  bottom: 0;
+  left: -5%;
+
+  width: 110%;
+  height: 75%;
+
+  background: #7767b7;
+
+  clip-path: polygon(
+    0 75%,
+    8% 58%,
+    16% 65%,
+    25% 42%,
+    33% 52%,
+    42% 30%,
+    49% 50%,
+    58% 36%,
+    66% 58%,
+    76% 35%,
+    85% 52%,
+    93% 32%,
+    100% 48%,
+    100% 100%,
+    0 100%
+  );
+}
+
+
+/* Middle */
+
+.mountain-middle {
+  position: absolute;
+
+  bottom: 0;
+  left: -5%;
+
+  width: 110%;
+  height: 58%;
+
+  background: #5b4b9d;
+
+  clip-path: polygon(
+    0 68%,
+    12% 48%,
+    21% 60%,
+    31% 35%,
+    42% 52%,
+    51% 25%,
+    61% 50%,
+    70% 30%,
+    81% 48%,
+    91% 28%,
+    100% 50%,
+    100% 100%,
+    0 100%
+  );
+}
+
+
+/* Front */
+
+.mountain-front {
+  position: absolute;
+
+  bottom: 0;
+  left: -5%;
+
+  width: 110%;
+  height: 38%;
+
+  background: #403171;
+
+  clip-path: polygon(
+    0 72%,
+    12% 50%,
+    23% 67%,
+    35% 40%,
+    47% 62%,
+    58% 42%,
+    69% 65%,
+    80% 45%,
+    90% 61%,
+    100% 48%,
+    100% 100%,
+    0 100%
+  );
+}
+
+
+/* =========================================
+   TREES
+   ========================================= */
+
+.tree {
+  position: absolute;
+
+  z-index: 12;
+
+  width: 0;
+  height: 0;
+
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-bottom: 52px solid #30234d;
+}
+
+.tree::after {
+  content: '';
+
+  position: absolute;
+
+  left: -3px;
+  top: 43px;
+
+  width: 6px;
+  height: 27px;
+
+  background: #30234d;
+}
+
+.tree-1 {
+  left: 7%;
+  bottom: 12%;
+
+  transform: scale(1.5);
+}
+
+.tree-2 {
+  left: 13%;
+  bottom: 8%;
+
+  transform: scale(1.1);
+}
+
+.tree-3 {
+  right: 12%;
+  bottom: 12%;
+
+  transform: scale(1.6);
+}
+
+.tree-4 {
+  right: 20%;
+  bottom: 7%;
+
+  transform: scale(0.9);
+}
+
+.tree-5 {
+  right: 27%;
+  bottom: 6%;
+
+  transform: scale(0.65);
+}
+
+
+/* =========================================
+   DASHBOARD SECTION
+   ========================================= */
+
+.dashboard-wrapper {
+  position: relative;
+
+  min-height: 100vh;
+
+  padding: 100px 7%;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(150, 100, 210, 0.15),
+      transparent 40%
+    ),
+    linear-gradient(
+      180deg,
+      #20183e,
+      #15112c
+    );
+}
+
+
+/* Dashboard heading */
+
+.dashboard-heading {
+  max-width: 700px;
+
+  margin: 0 auto 55px;
+
+  text-align: center;
+}
+
+.dashboard-heading h2 {
+  margin-bottom: 15px;
+
+  font-size: clamp(32px, 4vw, 50px);
+
+  font-weight: 800;
+
+  letter-spacing: -2px;
+}
+
+.dashboard-heading h2 span {
+  color: #f3a9d3;
+}
+
+.dashboard-heading p:last-child {
+  color: rgba(255, 255, 255, 0.6);
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+  .navbar {
+    padding: 0 6%;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero-content {
+    width: 90%;
+
+    padding-left: 7%;
+    padding-top: 14vh;
+  }
+
+  .hero-title {
+    font-size: 48px;
+
+    letter-spacing: -2px;
+  }
+
+  .hero-text {
+    max-width: 90%;
+
+    font-size: 13px;
+  }
+
+  .moon {
+    width: 125px;
+    height: 125px;
+
+    right: 8%;
+    top: 43%;
+  }
+
+  .mountains {
+    height: 42%;
+  }
+
+  .dashboard-wrapper {
+    padding: 70px 5%;
+  }
+
+  .dashboard-heading {
+    margin-bottom: 40px;
+  }
+}

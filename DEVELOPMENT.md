@@ -140,9 +140,9 @@ backend/
 │   ├── utils/
 │   │   ├── logger.ts            # Logging
 │   │   └── validation.ts        # Joi schemas
-│   ├── routes/                  # API endpoints
-│   ├── services/                # Business logic
-│   └── middleware/              # Authentication, CSRF and rate limiting
+│   ├── routes/                  # API endpoints (to implement)
+│   ├── services/                # Business logic (to implement)
+│   └── middleware/              # Custom middleware (to implement)
 ├── package.json
 ├── tsconfig.json
 └── .env.example
@@ -154,10 +154,10 @@ frontend/
 │   ├── index.css                # Global styles
 │   ├── pages/
 │   │   └── Dashboard.tsx        # Main dashboard
-│   ├── components/              # Reusable components (when expanded)
+│   ├── components/              # Reusable components (to implement)
 │   ├── utils/
 │   │   └── api.ts               # API client
-│   └── types/                   # TypeScript types (when expanded)
+│   └── types/                   # TypeScript types (to implement)
 ├── index.html
 ├── vite.config.ts
 ├── tsconfig.json
@@ -213,7 +213,7 @@ const rollback = async () => {
 
 See [FEATURE_SPECIFICATION.md](../FEATURE_SPECIFICATION.md) Section 7 for full API endpoint documentation.
 
-### Key Endpoints
+### Key Endpoints (To Be Implemented)
 - `POST /api/v1/kudos/submit` - Create new kudos
 - `GET /api/v1/kudos/feed` - Get recent kudos
 - `GET /api/v1/kudos/me/received` - Get received kudos

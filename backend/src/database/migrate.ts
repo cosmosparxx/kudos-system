@@ -1,5 +1,6 @@
 import { query } from './db.js';
 import logger from '../utils/logger.js';
+import { pathToFileURL } from 'url';
 
 const migrations = [
   {
@@ -101,22 +102,6 @@ const migrations = [
         executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `
-  },
-  {
-    id: '006_create_moderation_audit_logs_table',
-    sql: `
-      CREATE TABLE IF NOT EXISTS moderation_audit_logs (
-        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-        kudos_id UUID NOT NULL REFERENCES kudos(id) ON DELETE CASCADE,
-        admin_user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-        action VARCHAR(20) NOT NULL CHECK (action IN ('hide', 'delete')),
-        reason TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-
-      CREATE INDEX IF NOT EXISTS idx_moderation_audit_kudos ON moderation_audit_logs(kudos_id, created_at DESC);
-      CREATE INDEX IF NOT EXISTS idx_moderation_audit_admin ON moderation_audit_logs(admin_user_id, created_at DESC);
-    `
   }
 ];
 
@@ -154,7 +139,7 @@ async function runMigrations() {
 }
 
 // Run migrations if this file is executed directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   runMigrations()
     .then(() => {
       logger.info('Migrations completed');
