@@ -191,8 +191,8 @@ export default function KudosDashboard() {
       return
     }
 
-    if (!message.trim()) {
-      setError('Please enter a message.')
+    if (message.trim().length < 10) {
+      setError('Message must be at least 10 characters long.')
       return
     }
 
@@ -226,7 +226,12 @@ export default function KudosDashboard() {
         if (response.status === 401) {
           throw new Error('Unauthorized (401): Access token is missing or expired. Please log in again.')
         }
-        throw new Error(data.error || 'Failed to submit kudos')
+        const errorMessage =
+          data.error ||
+          (data.errors && data.errors.map((e: any) => e.message).join(', ')) ||
+          data.details ||
+          'Failed to submit kudos'
+        throw new Error(errorMessage)
       }
 
       setSuccess('Kudos sent successfully! 🎉')
