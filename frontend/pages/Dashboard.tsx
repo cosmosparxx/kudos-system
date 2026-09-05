@@ -138,7 +138,12 @@ export default function KudosDashboard() {
       setSuccess(`Logged in as ${data.user.name}! 🎉`)
       setLoginEmail('')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed')
+      const msg = err instanceof Error ? err.message : 'Login failed'
+      if (msg.toLowerCase().includes('failed to fetch') || msg.toLowerCase().includes('fetch')) {
+        setError('Cannot connect to backend server. Please make sure the backend is running at http://localhost:3000 (run "npm run dev" in the backend directory).')
+      } else {
+        setError(msg)
+      }
     } finally {
       setLoggingIn(false)
     }
@@ -251,11 +256,12 @@ export default function KudosDashboard() {
         setKudos(feedData.data || [])
       }
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : 'Failed to submit kudos'
-      )
+      const msg = err instanceof Error ? err.message : 'Failed to submit kudos'
+      if (msg.toLowerCase().includes('failed to fetch') || msg.toLowerCase().includes('fetch')) {
+        setError('Cannot connect to backend server. Please make sure the backend is running at http://localhost:3000 (run "npm run dev" in the backend directory).')
+      } else {
+        setError(msg)
+      }
     } finally {
       setSubmitting(false)
     }
